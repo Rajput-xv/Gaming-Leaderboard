@@ -48,6 +48,7 @@ export default function Leaderboard() {
   return (
     <div className="card">
       <h2>Top 10 Players</h2>
+      <div className="table-wrap">
       <table>
         <thead>
           <tr>
@@ -66,6 +67,7 @@ export default function Leaderboard() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
