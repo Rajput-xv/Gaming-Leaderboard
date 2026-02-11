@@ -84,6 +84,8 @@ Response:
 
 ## Database Schema
 
+![Database Schema](image.png)
+
 Three tables with proper indexing for large-scale queries:
 
 - **users** - id, username, join_date
