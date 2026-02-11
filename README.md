@@ -20,12 +20,12 @@ server/
     middleware/            # validation, rate limiting, error handler
     routes/               # api route definitions
     utils/                # redis cache helpers
+    __tests__/
+      leaderboard.test.js # 6 unit tests for the service layer
   scripts/
     seed.sql              # full schema + seed (1M users, 5M sessions)
     setup-db.js           # quick setup script (1K users, 5K sessions)
     simulate.py           # python load simulation
-  __tests__/
-    leaderboard.test.js   # 6 unit tests for the service layer
 
 client/
   src/
@@ -33,6 +33,7 @@ client/
     components/
       Leaderboard.jsx     # top 10 table with live polling
       RankLookup.jsx      # search player by user id or username
+      SubmitScore.jsx     # submit scores for any user
     api/
       leaderboard.js      # fetch helpers
 
@@ -96,7 +97,7 @@ Indexes on `game_sessions(user_id)`, `game_sessions(score DESC)`, `leaderboard(t
 
 ## How It Works
 
-1. **Score Submission** runs inside a database transaction. It inserts a game session and upserts the leaderboard entry atomically. If anything fails, the whole thing rolls back.
+1. **Score Submission** runs inside a database transaction. It auto-creates the user if needed, inserts a game session, and upserts the leaderboard total atomically. If anything fails, the whole thing rolls back.
 
 2. **Top 10 Query** uses `DENSE_RANK() OVER (ORDER BY total_score DESC)` so tied scores get the same rank. Results are cached in Redis for 10 seconds.
 
@@ -115,7 +116,10 @@ PORT=8000
 NODE_ENV=development
 DATABASE_URL=postgresql://user:password@host:5432/postgres
 REDIS_URL=redis://default:password@host:port
+NEW_RELIC_APP_NAME=gaming-leaderboard
 NEW_RELIC_LICENSE_KEY=your_key_here
+CACHE_TTL_LEADERBOARD=10
+CACHE_TTL_RANK=5
 ```
 
 ### Install and Run
@@ -125,12 +129,12 @@ NEW_RELIC_LICENSE_KEY=your_key_here
 cd server
 npm install
 npm run setup-db    # creates tables, seeds 1K users + 5K sessions
-npm run dev         # starts on port 8000 with --watch
+npm run dev         # starts on port 8000 with --watch + New Relic
 
 # client (separate terminal)
 cd client
 npm install
-npm run dev         # starts on port 5173, proxies /api to :8000
+npm run dev         # starts on port 3000, proxies /api to :8000
 ```
 
 ### Full Dataset
@@ -159,18 +163,3 @@ All tests mock the database and Redis so they run without external services.
 - **Short TTLs** - 10s for leaderboard, 5s for individual rank; keeps data fresh without hammering the database
 - **Rate limiting** - 100 requests per minute per IP to prevent abuse
 - **Input validation** - middleware validates user_id and score before they reach the service layer
-
-## Documentation
-
-Detailed docs are in the `docs/` folder:
-
-1. Project Setup
-2. API Reference
-3. Database Design
-4. Redis Caching Strategy
-5. New Relic Monitoring
-6. Architecture (HLD + LLD)
-7. Optimization Techniques
-8. Atomicity and Consistency
-9. Testing Approach
-10. Security Considerations
