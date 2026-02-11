@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0f0f1a;
+  color: #e0e0e0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.app h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #7c3aed;
+}
+
+/* card sections */
+.card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a40;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #a78bfa;
+  margin-bottom: 16px;
+}
+
+/* leaderboard table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  padding: 8px 12px;
+  border-bottom: 1px solid #2a2a40;
+}
+
+tbody tr {
+  transition: background 0.15s;
+}
+
+tbody tr:hover {
+  background: #22223a;
+}
+
+tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #1f1f35;
+  font-size: 0.95rem;
+}
+
+/* rank badge for top 3 */
+.rank-gold { color: #fbbf24; font-weight: 700; }
+.rank-silver { color: #94a3b8; font-weight: 700; }
+.rank-bronze { color: #cd7f32; font-weight: 700; }
+
+/* search section */
+.search-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.search-row input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #2a2a40;
+  background: #12121f;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-row input:focus {
+  border-color: #7c3aed;
+}
+
+.search-row input::placeholder {
+  color: #555;
+}
+
+.search-row button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-row button:hover {
+  background: #6d28d9;
+}
+
+.search-row button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* rank result card */
+.rank-result {
+  background: #12121f;
+  border: 1px solid #2a2a40;
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.rank-result p {
+  font-size: 0.95rem;
+}
+
+.rank-result strong {
+  color: #a78bfa;
+}
+
+/* status messages */
+.msg-error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.msg-info {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.msg-loading {
+  color: #7c3aed;
+  font-size: 0.9rem;
+}
+
+/* remove number input spinner */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
