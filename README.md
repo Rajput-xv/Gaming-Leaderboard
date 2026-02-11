@@ -8,6 +8,14 @@ A backend-focused leaderboard system built with Node.js, Express, PostgreSQL (Su
 - **Frontend:** React 18, Vite
 - **Testing:** Jest (unit tests with mocked DB and cache)
 
+## Newrelic Dashboard ss
+
+![Dashboard Overview](image-4.png)
+![Dashboard Overview](image-5.png)
+![Dashboard transaction](image-1.png)
+![Dashboard transaction](image-2.png)
+![Dashboard transaction](image-3.png)
+
 ## Project Structure
 
 ```
