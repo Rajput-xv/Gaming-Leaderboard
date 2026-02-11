@@ -161,6 +161,12 @@ tbody td {
   font-size: 0.9rem;
 }
 
+.msg-success {
+  color: #22c55e;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
 /* remove number input spinner */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

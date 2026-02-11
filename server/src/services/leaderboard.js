@@ -9,6 +9,14 @@ async function submitScore(userId, score) {
   try {
     await client.query("BEGIN");
 
+    // ensure user exists, create if not
+    await client.query(
+      `INSERT INTO users (id, username)
+       VALUES ($1, $2)
+       ON CONFLICT (id) DO NOTHING`,
+      [userId, `user_${userId}`]
+    );
+
     // insert new game session with default game_mode
     await client.query(
       `INSERT INTO game_sessions (user_id, score, game_mode)
@@ -33,6 +41,14 @@ async function submitScore(userId, score) {
     return { message: "score submitted" };
   } catch (err) {
     await client.query("ROLLBACK");
+
+    // foreign key violation → user_id doesn't exist
+    if (err.code === "23503") {
+      const error = new Error("user not found");
+      error.statusCode = 404;
+      throw error;
+    }
+
     throw err;
   } finally {
     client.release();

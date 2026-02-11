@@ -14,3 +14,14 @@ export async function fetchPlayerRank(userId) {
   if (!json.success) throw new Error(json.error || "failed to fetch rank");
   return json.data || null;
 }
+
+export async function submitScore(userId, score) {
+  const res = await fetch(`${BASE}/submit`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId, score }),
+  });
+  const json = await res.json();
+  if (!json.success) throw new Error(json.error || "failed to submit score");
+  return json.data;
+}
