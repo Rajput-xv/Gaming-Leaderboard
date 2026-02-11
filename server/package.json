@@ -8,7 +8,7 @@
     "start": "node -r dotenv/config -r newrelic src/index.js",
     "test": "jest --forceExit --detectOpenHandles",
     "test:watch": "jest --watch",
-    "setup-db": "node scripts/setup-db.js"
+    "seed": "node scripts/seed.js"
   },
   "dependencies": {
     "compression": "^1.7.4",

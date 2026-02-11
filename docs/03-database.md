@@ -30,7 +30,7 @@ leaderboard
 
 ## Indexes
 
-Created in `seed.sql` for performance on large datasets:
+Created by the seeding script for performance on large datasets:
 
 | Index | Column | Purpose |
 |---|---|---|
@@ -47,13 +47,23 @@ Created in `seed.sql` for performance on large datasets:
 
 ## Seed Data
 
-Run `server/scripts/seed.sql` in the Supabase SQL editor:
+Run the automated seeding script:
 
-1. Creates 1M users (`user_1` through `user_1000000`)
-2. Creates 5M game sessions with random scores (1-10000), modes (solo/team), timestamps (past year)
-3. Aggregates sessions into leaderboard with `SUM(score)` and `RANK()`
+```bash
+cd server
+npm run seed
+```
 
-If seeding is slow, reduce `generate_series` counts (e.g., 100K users, 500K sessions).
+This script:
+
+1. Drops existing tables (clean slate)
+2. Creates schema with all indexes
+3. Seeds 1M users (`user_1` through `user_1000000`)
+4. Seeds 5M game sessions with random scores (1-10000), modes (solo/team), timestamps (past year)
+5. Aggregates sessions into leaderboard with `SUM(score)` and `RANK()`
+6. Creates indexes last for optimal bulk-insert performance
+
+Takes 2-5 minutes on most database connections.
 
 ## UNIQUE Constraint on leaderboard(user_id)
 

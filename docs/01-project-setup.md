@@ -46,13 +46,19 @@ Required variables in `.env`:
 
 ## 3. Seed the Database
 
-Run `server/scripts/seed.sql` against your Supabase SQL editor or via `psql`:
+Run the automated seeding script:
 
 ```bash
-psql $DATABASE_URL -f scripts/seed.sql
+cd server
+npm run seed
 ```
 
-This creates tables, indexes, 1M users, 5M game sessions, and populates the leaderboard.
+This drops existing tables (clean slate), creates fresh tables with indexes, and populates:
+- 1M users
+- 5M game sessions  
+- Aggregated leaderboard with rankings
+
+Takes 2-5 minutes depending on your database connection speed.
 
 ## 4. Start the Server
 

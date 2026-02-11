@@ -2,13 +2,15 @@
 
 A backend-focused leaderboard system built with Node.js, Express, PostgreSQL (Supabase), and Redis. Includes a lightweight React frontend for viewing rankings and looking up players.
 
+[Github Link](https://github.com/Rajput-xv/Gaming-Leaderboard)
+
 ## Tech Stack
 
 - **Backend:** Node.js, Express 4, PostgreSQL (Supabase), Redis (ioredis), New Relic APM
 - **Frontend:** React 18, Vite
 - **Testing:** Jest (unit tests with mocked DB and cache)
 
-## Newrelic Dashboard ss
+## New Relic Dashboard Overview
 
 ![Dashboard Overview](image-4.png)
 ![Dashboard Overview](image-5.png)
@@ -31,8 +33,7 @@ server/
     __tests__/
       leaderboard.test.js # 6 unit tests for the service layer
   scripts/
-    seed.sql              # full schema + seed (1M users, 5M sessions)
-    setup-db.js           # quick setup script (1K users, 5K sessions)
+    seed.js               # database setup and seeding (1M users, 5M sessions)
     simulate.py           # python load simulation
 
 client/
@@ -136,7 +137,7 @@ CACHE_TTL_RANK=5
 # server
 cd server
 npm install
-npm run setup-db    # creates tables, seeds 1K users + 5K sessions
+npm run seed        # creates tables and seeds 1M users + 5M sessions
 npm run dev         # starts on port 8000 with --watch + New Relic
 
 # client (separate terminal)
@@ -144,10 +145,6 @@ cd client
 npm install
 npm run dev         # starts on port 3000, proxies /api to :8000
 ```
-
-### Full Dataset
-
-For 1M users and 5M game sessions, run `server/scripts/seed.sql` directly in your Supabase SQL editor. This takes a few minutes but gives realistic query performance for testing.
 
 ## Testing
 
